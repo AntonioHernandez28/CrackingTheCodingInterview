@@ -2,6 +2,8 @@
 #include <vector> 
 using namespace std; 
 
+/* REPASAR OJO REPASAR */ 
+
 void transposeMatrix(vector<vector<int>> &array){
     for(int i = 0; i < array.size(); i++)
         for(int j = i; j < array[0].size(); j++)
@@ -28,6 +30,8 @@ Hints:#51, #100
     1 4 7
 
     Approach: Tasponse matrix and theeeeen reverse columns of transposed matrix (columns NOT rows)
+
+    REPASAR
 */ 
 
     vector<vector<int>> Array = {{1,2,3}, {4,5,6}, {7,8,9}}; 
