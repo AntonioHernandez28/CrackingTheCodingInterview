@@ -50,7 +50,7 @@ int main(){
 
     */
 
-    cout << "PTM" << endl;
+    
     ListNode* head = new ListNode(); 
     head -> val = 1; 
 
