@@ -1,5 +1,6 @@
 #include <iostream> 
 #include <vector> 
+#include <queue>
 using namespace std; 
 #define COUNT 10
 
@@ -43,9 +44,24 @@ TreeNode* MinimalTree(vector<int> arr, int begin, int end){
     return nuevoNodo; 
 }
 
-int main(){
-    /* Problem 4.2: Minimal Tree: Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height. */
-    vector<int> arr = {1,2,3,4,5,6};
+int height(TreeNode* root){
+    if(!root) return 0; 
+    return 1 + max(height(root -> left), height(root -> right)); 
+}
 
-    print2D(MinimalTree(arr, 0, arr.size() - 1));  
+bool isBalanced(TreeNode* root){
+    int Left = height(root -> left); 
+    int Right = height(root -> right); 
+    return abs(Left - Right) <= 1 ? true:false; 
+}
+
+int main(){
+    /* Problem 4.4: Check Balanced: Implement a function to check if a binary tree is balanced. For the purposes 
+    of this question, a balanced tree is defined to be a tree such that the heights of the two subtrees of any node never differ by more than one. */
+    vector<int> arr = {1,2,3,4,5};
+
+    TreeNode* head = MinimalTree(arr, 0, arr.size() - 1);
+    print2D(head);
+    if(isBalanced(head)) cout << "True" << endl; 
+    else cout << "False" << endl; 
 }

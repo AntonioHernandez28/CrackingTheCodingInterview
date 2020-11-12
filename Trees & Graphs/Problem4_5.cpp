@@ -36,16 +36,34 @@ TreeNode* MinimalTree(vector<int> arr, int begin, int end){
     if(end < begin) return NULL;
     int mid = (begin + end)/2; 
     TreeNode* nuevoNodo = new TreeNode(); 
-    nuevoNodo -> data = mid; 
+    nuevoNodo -> data = arr[mid]; 
     nuevoNodo -> left = MinimalTree(arr, begin, mid - 1); 
     nuevoNodo -> right = MinimalTree(arr, mid + 1, end); 
 
     return nuevoNodo; 
 }
 
-int main(){
-    /* Problem 4.2: Minimal Tree: Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height. */
-    vector<int> arr = {1,2,3,4,5,6};
+void DFS(TreeNode* root, vector<int> &arr){
+    if(!root) return; 
+    DFS(root -> left, arr); 
+    arr.push_back(root -> data); 
+    DFS(root -> right, arr);
+    return; 
+}
 
-    print2D(MinimalTree(arr, 0, arr.size() - 1));  
+bool isBST(TreeNode* root){
+    vector<int> arr; 
+    DFS(root, arr); 
+    for(int i = 0; i < arr.size() - 2; i++) if(arr[i] > arr[i+1]) return false; 
+    return true;
+}
+int main(){
+    /* Problem 4.5: Validate BST: Implement a function to check if a binary tree is a binary search tree. */
+    vector<int> arr = {6,5,3,8,1,2};
+
+    TreeNode* root = MinimalTree(arr, 0, arr.size() - 1);
+    print2D(root);
+
+    if(isBST(root)) cout << "true" << endl; 
+    else cout << "false" << endl; 
 }

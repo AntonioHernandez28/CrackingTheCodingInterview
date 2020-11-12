@@ -1,5 +1,6 @@
 #include <iostream> 
 #include <vector> 
+#include <queue>
 using namespace std; 
 #define COUNT 10
 
@@ -43,9 +44,38 @@ TreeNode* MinimalTree(vector<int> arr, int begin, int end){
     return nuevoNodo; 
 }
 
+vector<vector<int>> LevelByLevel(TreeNode* root){
+    vector<vector<int>> res; 
+    if(!root) return res; 
+    queue<TreeNode*> q; 
+    q.push(root); 
+
+    while(!q.empty()){
+        int n = q.size(); 
+        vector<int> temp;
+        for(int i = 0; i < n; i++){ 
+            TreeNode* currentNode = q.front(); 
+            temp.push_back(currentNode -> data); 
+            q.pop();
+            if(currentNode -> left) q.push(currentNode -> left); 
+            if(currentNode -> right) q.push(currentNode -> right); 
+        }
+        res.push_back(temp); 
+    }
+    return res; 
+}
+
 int main(){
     /* Problem 4.2: Minimal Tree: Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height. */
     vector<int> arr = {1,2,3,4,5,6};
 
-    print2D(MinimalTree(arr, 0, arr.size() - 1));  
+    TreeNode* head = MinimalTree(arr, 0, arr.size() - 1);
+
+    print2D(head); 
+    vector<vector<int>> res = LevelByLevel(head); 
+    for(auto x:res){
+        for(auto y:x) cout << y << " "; 
+        cout << endl; 
+    }
+
 }
